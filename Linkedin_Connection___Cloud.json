@@ -1,0 +1,719 @@
+{
+  "name": "Linkedin Connection - Cloud",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        520,
+        220
+      ],
+      "id": "62360171-214d-4f79-8147-2eaf75d3c9f5",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "linkedinUrl": "={{ $json['Linkedin Url'] }}",
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-browserflow.browserflow",
+      "typeVersion": 1,
+      "position": [
+        800,
+        280
+      ],
+      "id": "f9b855d9-320c-41ae-8dad-af22144bcab4",
+      "name": "Browserflow",
+      "retryOnFail": true,
+      "credentials": {
+        "browserflowApi": {
+          "id": "26sT9pe0OlaAZaVp",
+          "name": "Browserflow account -Kai"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5f84587f-60e7-4b0f-84e0-ce74a95fb65c",
+              "leftValue": "={{ $json.is_connection }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1280,
+        200
+      ],
+      "id": "80840770-3639-4044-b6bf-51f32e191ac9",
+      "name": "If Connected"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk",
+          "mode": "list",
+          "cachedResultName": "**Master**linkedin Outreach_Profile Kai",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Linkedin Leads - 130425",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Connection Request Sent": "Yes",
+            "Connected": "Yes",
+            "Linkedin Url": "={{ $('Google Sheets1').item.json['Linkedin Url'] }}"
+          },
+          "matchingColumns": [
+            "Linkedin Url"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Connect",
+              "displayName": "Connect",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Linkedin Url",
+              "displayName": "Linkedin Url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Image Url",
+              "displayName": "Image Url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tagline",
+              "displayName": "Tagline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Connection Request Sent",
+              "displayName": "Connection Request Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Connected",
+              "displayName": "Connected",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1740,
+        180
+      ],
+      "id": "ef21e07c-0872-433d-84a3-97e1dfabd62e",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PC2WMkmpPHJxqzc7",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1480,
+        360
+      ],
+      "id": "1a7acf4f-5bc2-464c-abcc-b9b9a34bc3e5",
+      "name": "Wait 10 sec",
+      "webhookId": "b5482a89-cecc-4405-bb37-6c63b0da01c1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        440,
+        600
+      ],
+      "id": "4f08df1f-a9c9-488d-a45d-13dc38ba44e7",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk",
+          "mode": "list",
+          "cachedResultName": "**Master**linkedin Outreach_Profile Kai",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Linkedin Leads - 130425",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Connection Request Sent",
+              "lookupValue": "No"
+            },
+            {
+              "lookupColumn": "Connect",
+              "lookupValue": "y"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2040,
+        620
+      ],
+      "id": "831b5f98-1bda-43b1-b947-912e5c97b678",
+      "name": "Getting Next batch",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PC2WMkmpPHJxqzc7",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendConnectionInvite",
+        "linkedinUrl": "={{ $('Google Sheets1').item.json['Linkedin Url'] }}",
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-browserflow.browserflow",
+      "typeVersion": 1,
+      "position": [
+        720,
+        620
+      ],
+      "id": "282ee408-31f7-449e-bd7c-4f84b2624405",
+      "name": "Send Connection Invite",
+      "notesInFlow": false,
+      "credentials": {
+        "browserflowApi": {
+          "id": "26sT9pe0OlaAZaVp",
+          "name": "Browserflow account -Kai"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk",
+          "mode": "list",
+          "cachedResultName": "**Master**linkedin Outreach_Profile Kai",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Linkedin Leads - 130425",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Linkedin Url": "={{ $('Google Sheets1').item.json['Linkedin Url'] }}",
+            "Connection Request Sent": "Yes"
+          },
+          "matchingColumns": [
+            "Linkedin Url"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Connect",
+              "displayName": "Connect",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Linkedin Url",
+              "displayName": "Linkedin Url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Image Url",
+              "displayName": "Image Url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tagline",
+              "displayName": "Tagline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Connection Request Sent",
+              "displayName": "Connection Request Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Connected",
+              "displayName": "Connected",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1480,
+        620
+      ],
+      "id": "1ddefe35-2921-4986-9ef6-f642d7054642",
+      "name": "Update Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PC2WMkmpPHJxqzc7",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1100,
+        620
+      ],
+      "id": "40e0aa4c-be19-4ea8-9c85-0a0be9aac9fe",
+      "name": "Wait",
+      "webhookId": "723457bc-5cbd-482a-ac49-c9789506226b"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1760,
+        620
+      ],
+      "id": "b4dfff3b-0211-4e01-8640-f728138274db",
+      "name": "Wait Linkesdin Limit",
+      "webhookId": "3faf4112-6ffe-44f2-b76c-e60af170b3ce"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -220,
+        640
+      ],
+      "id": "6309bf78-2458-4701-99eb-e51b161ea472",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk",
+          "mode": "list",
+          "cachedResultName": "**Master**linkedin Outreach_Profile Kai",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Linkedin Leads - 130425",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Connect",
+              "lookupValue": "y"
+            },
+            {
+              "lookupColumn": "Connection Request Sent",
+              "lookupValue": "No"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        100,
+        220
+      ],
+      "id": "2b19689a-0f74-4532-9c91-182b63cd34fe",
+      "name": "Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PC2WMkmpPHJxqzc7",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "If Connected",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Browserflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Browserflow": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Connected": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait 10 sec",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 10 sec": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Send Connection Invite",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Getting Next batch": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Connection Invite": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheets": {
+      "main": [
+        [
+          {
+            "node": "Wait Linkesdin Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Update Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Linkesdin Limit": {
+      "main": [
+        [
+          {
+            "node": "Getting Next batch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0ba619ff-8214-4c62-8dd8-17b635776108",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "65310fc452d63862932a7fedb39d12edf0d50c9ee345493cb5fa45dd609910fc"
+  },
+  "id": "yUxX3VKUvcR0OmQE",
+  "tags": []
+}

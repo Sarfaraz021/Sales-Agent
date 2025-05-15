@@ -1,0 +1,230 @@
+{
+  "name": "Linkedin Leads Search",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "scrapeProfilesFromSearch",
+        "searchMethod": "url",
+        "searchUrl": "https://www.linkedin.com/search/results/people/?geoUrn=%5B%22101282230%22%5D&industry=%5B%229%22%5D&keywords=Gesch%C3%A4ftsf%C3%BChrer&network=%5B%22S%22%2C%22O%22%5D&origin=FACETED_SEARCH&profileLanguage=%5B%22de%22%5D&sid=0qw",
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-browserflow.browserflow",
+      "typeVersion": 1,
+      "position": [
+        260,
+        0
+      ],
+      "id": "654673d4-aade-4c30-9be2-473365c4b597",
+      "name": "Browserflow",
+      "credentials": {
+        "browserflowApi": {
+          "id": "26sT9pe0OlaAZaVp",
+          "name": "Browserflow account -Kai"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        560,
+        0
+      ],
+      "id": "cd7a0fc5-e133-4db4-8157-8be1eef8a4ad",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Linkedin Searched Leads - 130425",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vNHirTaQNsg3j76z36Atyu1pvcax0X_bPurDk_6DGtk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.name }}",
+            "Linkedin Url": "={{ $json.linkedin_url }}",
+            "Image Url": "={{ $json.image_url }}",
+            "Tagline": "={{ $json.tagline }}",
+            "Location": "={{ $json.location }}",
+            "Summary": "={{ $json.summary }}",
+            "Connection Request Sent": "No",
+            "Connected": "No"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Connect",
+              "displayName": "Connect",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Linkedin Url",
+              "displayName": "Linkedin Url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Image Url",
+              "displayName": "Image Url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tagline",
+              "displayName": "Tagline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Connection Request Sent",
+              "displayName": "Connection Request Sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Connected",
+              "displayName": "Connected",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        820,
+        0
+      ],
+      "id": "797957c7-ef7c-40a0-bfb5-32e14cdf162d",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PC2WMkmpPHJxqzc7",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        220
+      ],
+      "id": "8e382d86-6ea2-4272-9ce9-fdd4db62c5b9",
+      "name": "When clicking ‘Test workflow’"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Browserflow": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Browserflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "059b8f4c-0873-4045-b5a4-49b57d441e87",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "65310fc452d63862932a7fedb39d12edf0d50c9ee345493cb5fa45dd609910fc"
+  },
+  "id": "l7Y4h4escanlPpI0",
+  "tags": []
+}
